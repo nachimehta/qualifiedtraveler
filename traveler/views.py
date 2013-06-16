@@ -3,6 +3,10 @@ from django.shortcuts import render_to_response
 from xml.etree import ElementTree as ET
 from django.views.decorators.csrf import csrf_exempt
 
+
+def create(request):
+    return render_to_response("create.html")
+
 @csrf_exempt
 def register(request):
     if request.method == 'POST':
@@ -50,7 +54,6 @@ def register(request):
 
             return result
 
-
         formdata = request.POST['data']
         fdict = dict()
 
@@ -67,10 +70,9 @@ def register(request):
         xmlstr = xmlstr + dateformat(fdict) + '/><recur><freq count="' + fdict['repeats'][0] + '"><DAILY>"' + weekdays(fdict)
         xmlstr = xmlstr + '</DAILY></freq></recur></timeTrigger></trigger>' + users(fdict) + '</survey></administrator>'
 
-        print xmlstr
-
         tree = ET.XML(xmlstr)
 
+        #This is where Hoang takes over
         with open("XLM.xml", "w") as f:
             f.write(ET.tostring(tree))
 

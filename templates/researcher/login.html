@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Log in</title>
+<style>
+    body{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+    }
+</style>
+</head>
+<body>
+    {{ state }}
+    <form action="researcher/create" method="post">{% csrf_token %}
+        {% if next %}
+        <input type="hidden" name="next" value="{{ next }}" />
+        {% endif %}
+        username:
+        <input type="text" name="username" value="{{ username }}"/>
+        password:
+        <input type="text" name="password" value=""/><br/>
+
+        <input type="submit" value="Log In"/>
+    </form>
+
+</body>
+</html>

@@ -4,38 +4,31 @@ from xml.etree import ElementTree as ET
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login
 from django.core.context_processors import csrf
+from django.contrib.auth.decorators import login_required
+from django.template import RequestContext
+from django.contrib.auth.models import User
 
 
-def login_user(request):
-    c = {}
-    c.update(csrf(request))
-
-    state = "Please log in below..."
-    username = password = ''
-    if request.POST:
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                state = "You're successfully logged in!"
-            else:
-                state = "Your account is not active, please contact the site"
-        else:
-            state = "Your username and/or password were incorrect."
-
-    return render_to_response('researcher/login.html', {'state': state, 'username': username})
+@login_required
+def researcher_main_page(request):
+    """
+    If users are authenticated, direct them to the main page. Otherwise, take
+    them to the login page.
+    """
+    variables = RequestContext(request, {'user': request.user})
+    return render_to_response('researcher/index.html', variables)
 
 
+@login_required
 #show survey page
 def create(request):
+    variables = RequestContext(request, {'user': request.user})
     return render_to_response('researcher/create.html')
+
 
 #create xml file from survey
 @csrf_exempt
-def register(request):
+def create_experiment(request):
     if request.method == 'POST':
 
         def dateformat(datadict):

@@ -15,17 +15,17 @@ $(document).ready(function(){
 <script>
 $(document).ready(function(){
    $("button").click(function(){
-       $.post("http://127.0.0.1:8000/register/", {'data': $("form").serialize()});
+       $.post("http://127.0.0.1:8000/account/exp/", {'data': $("form").serialize()});
    });
 });
 </script>
 
-<form id="myForm" action="http://127.0.0.1:8000/register/">
+<form id="myForm" action="http://127.0.0.1:8000/account/exp/">{% csrf_token %}
     E-mail: <input type="text" name="administrator" value="" placeholder="raja@berkeley.edu"/><br>
     User List: <input type="checkbox" name="user" value="nachi">Nachi
     <input type="checkbox" name="user" value="hoang">Hoang
-    <input type="checkbox" name="user" value="Sid">Sid
-    <input type="checkbox" name="user" value="Andre">Andre<br>
+    <input type="checkbox" name="user" value="sid">Sid
+    <input type="checkbox" name="user" value="andre">Andre<br>
     Survey Name: <input type="text" name="survey" value="" placeholder="survey25"/><br>
     Timetrigger: <input type="text" name="month" value="" size="1"/> /
     <input type="text" name="day" value="" size="1"/> /

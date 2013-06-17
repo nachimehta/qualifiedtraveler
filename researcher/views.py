@@ -23,8 +23,12 @@ def researcher_main_page(request):
 #show survey page
 def create(request):
     variables = RequestContext(request, {'user': request.user})
-    return render_to_response('researcher/create.html')
+    return render_to_response('researcher/create.html', variables)
 
+@login_required
+def create2(request):
+    variables = RequestContext(request, {'user': request.user})
+    return render_to_response('researcher/create2.html', variables)
 
 #create xml file from survey
 @csrf_exempt

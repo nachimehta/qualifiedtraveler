@@ -18,6 +18,9 @@ class Experiment(models.Model):
     name = models.CharField(max_length=50)
     researcher = models.ForeignKey(User)
 
+    def __unicode__(self):
+        return self.name + " " + self.researcher.username
+
 
 class Participant(models.Model):
     participant_name = models.CharField(max_length=30)
@@ -27,9 +30,16 @@ class Participant(models.Model):
     class Meta:
         verbose_name_plural = 'group'
 
+    def __unicode__(self):
+        return self.participant_name + " " + self.experiment.name
+
 
 class Survey(models.Model):
+    XFormID = models.CharField(max_length=30)
     participants = models.ManyToManyField(Participant)
+
+    def __unicode__(self):
+        return self.XFormID
 
 
 class Trigger(models.Model):
@@ -38,6 +48,9 @@ class Trigger(models.Model):
 
     class Meta:
         abstract = True
+
+    def __unicode__(self):
+        return self.name
 
 
 class TimeTrigger(Trigger):

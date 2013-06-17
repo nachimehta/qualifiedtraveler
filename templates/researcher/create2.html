@@ -1,0 +1,85 @@
+{% extends "researcher/researcher.html" %}
+
+{% block head %}
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"/>
+    <!--
+    <script src="static/jquery.cookie.js"/>
+
+    <!--send data to be created into xml
+    <script>
+        var csrftoken = $.cookie('csrftoken');
+
+        function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+
+        $.ajaxSetup({
+            crossDomain: false, // obviates need for sameOrigin test
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+    -->
+
+    <script>
+    $(document).ready(function(){
+       $("button").click(function(){
+           $.post("../account/exp/", {'data': $("form").serialize(), 'csrfmiddlewaretoken': '{{ csrf_token }}'});
+       });
+    });
+    </script>
+
+{% endblock %}
+
+{% block title %}
+  Xlab Mobile
+{% endblock %}
+
+{% block content %}
+    <h1>Experiment</h1>
+
+    <form id="myForm" action="../account/exp">{% csrf_token %}
+        E-mail: <input type="text" name="administrator" value="" placeholder="raja@berkeley.edu"/><br>
+        User List: <input type="checkbox" name="user" value="nachi">Nachi
+        <input type="checkbox" name="user" value="hoang">Hoang
+        <input type="checkbox" name="user" value="sid">Sid
+        <input type="checkbox" name="user" value="andre">Andre<br>
+        Survey Name: <input type="text" name="survey" value="" placeholder="survey25"/><br>
+        Timetrigger: <input type="text" name="month" value="" size="1"/> /
+        <input type="text" name="day" value="" size="1"/> /
+        <input type="text" name="year" value="" size="1"/> at
+        <select name="hour">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+        </select>
+        <select name="ampm">
+            <option value="am">am</option>
+            <option value="pm">pm</option>
+        </select><br>
+        repeat occurances: <input type="text" name="repeats" value="" size="3"/><br>
+        repeats on: <input type="checkbox" name="weekdays" value="Su">S
+    <input type="checkbox" name="weekdays" value="M">M
+        <input type="checkbox" name="weekdays" value="Tu">T
+        <input type="checkbox" name="weekdays" value="W">W
+        <input type="checkbox" name="weekdays" value="Th">Th
+        <input type="checkbox" name="weekdays" value="F">F
+        <input type="checkbox" name="weekdays" value="Sa">S
+        <input type="button" name="submit" value="submit">
+    </form>
+       <button>Serialize form values</button>
+    <div></div>
+{%  endblock %}

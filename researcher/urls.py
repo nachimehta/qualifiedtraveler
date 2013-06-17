@@ -3,7 +3,9 @@ from researcher.views import *
 
 urlpatterns = patterns('',
 
-                      #researcher main page is the create experiment page for now
-                      url(r'^$', researcher_main_page),
-                      url(r'^exp', create_experiment),
-                      )
+    #researcher main page is the create experiment page for now
+    (r'^$', researcher_main_page),
+    #(r'^create', create),
+    (r'^create2', create2),
+    (r'^exp', create_experiment),
+    )

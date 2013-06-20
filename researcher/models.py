@@ -5,15 +5,6 @@ import recurrence.fields
 
 
 # Create your models here.
-
-"""
-class ExperimentForm(forms.Form):
-    administrator = forms.charField()
-    name = forms.charField()
-    survey = forms.charField()
-"""
-
-
 class Experiment(models.Model):
     name = models.CharField(max_length=50)
     researcher = models.ForeignKey(User)

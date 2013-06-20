@@ -7,6 +7,7 @@ from django.core.context_processors import csrf
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from django.contrib.auth.models import User
+from researcher.forms import ExperimentForm
 
 
 @login_required
@@ -27,7 +28,8 @@ def create(request):
 
 @login_required
 def create2(request):
-    variables = RequestContext(request, {'user': request.user})
+    form = ExperimentForm()
+    variables = RequestContext(request, {'user': request.user, 'form': form})
     return render_to_response('researcher/create2.html', variables)
 
 #create xml file from survey

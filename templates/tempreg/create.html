@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<h1>Experiment</h1>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+</script>
+
+<script type="text/javascript" src="jq.js"></script>
+<!--
+<script>
+$(document).ready(function(){
+  $("button").click(function(){
+    $("#output").text($("form").serialize());
+  });
+});
+</script>
+-->
+
+<script>
+$(document).ready(function(){
+    $('#geotrigger').hide();
+
+    $(document).on('click', '#triggertype', function(){
+        $triggertype = $('input:radio[name=triggertype]:checked').val();
+        if($triggertype === "timetrigger"){
+            $('#geotrigger').hide();
+            $('#timetrigger').show();
+        }
+        else if($triggertype === "geotrigger")
+        {
+            $('#geotrigger').show();
+            $('#timetrigger').hide();
+        }
+    });
+
+   $("button").click(function(){
+       $.post("http://127.0.0.1:8000/register/exp/", {'data': $("form").serialize()});
+   });
+});
+</script>
+<a href="https://odk-mod-hoang.appspot.com/Aggregate.html#management/forms///" target="_blank">Modify Forms</a><br><br>
+<form id="myForm" action="http://127.0.0.1:8000/register/exp/">
+    E-mail: <input type="text" name="administrator" value="" placeholder="raja@berkeley.edu"/><br>
+    Survey Name: <input type="text" name="survey" value="" placeholder="survey25"/><br>
+    User List: <input type="checkbox" name="user" value="nachi">Nachi
+    <input type="checkbox" name="user" value="hoang">Hoang
+    <input type="checkbox" name="user" value="sid">Sid
+    <input type="checkbox" name="user" value="andre">Andre<br>
+    <div id="triggertype">
+    Trigger Type: <input type="radio" name="triggertype" value="timetrigger" checked="checked">Timetrigger
+    <input type="radio" name="triggertype" value="geotrigger">Geotrigger<br>
+        </div>
+    <div id="timetrigger">
+    Timetrigger: <input type="text" name="month" value="" size="1"/> /
+    <input type="text" name="day" value="" size="1"/> /
+    <input type="text" name="year" value="" size="1"/> at
+    <select name="hour">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+    </select>
+    <select name="minute">
+        <option value="00">00</option>
+        <option value="05">05</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="30">30</option>
+        <option value="35">35</option>
+        <option value="40">40</option>
+        <option value="45">45</option>
+        <option value="50">50</option>
+        <option value="55">55</option>
+    </select>
+    <select name="ampm">
+        <option value="am">am</option>
+        <option value="pm">pm</option>
+    </select><br>
+    </div>
+    <div id="geotrigger">Geotrigger: 
+        lat: <input type="text" name="lat" value="" size="6"/>
+        lon: <input type="text" name="lon" value="" size="6"/>
+        radius: <input type="text" name="rad" value="" size="4"/>
+        <select name="event">
+        <option value="enter">enter</option>
+        <option value="exit">exit</option>
+    </select>
+    </div>   
+    repeat occurances: <input type="text" name="repeats" value="" size="3"/><br>
+    repeats on: <input type="checkbox" name="weekdays" value="SU">S
+<input type="checkbox" name="weekdays" value="MO">M
+    <input type="checkbox" name="weekdays" value="TU">T
+    <input type="checkbox" name="weekdays" value="WE">W
+    <input type="checkbox" name="weekdays" value="TH">T
+    <input type="checkbox" name="weekdays" value="FR">F
+    <input type="checkbox" name="weekdays" value="SA">S
+</form>
+   <button>Submit</button>
+<div id="output"></div>
